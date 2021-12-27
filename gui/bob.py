@@ -33,12 +33,12 @@ def handle_client(connection, address):
             message = pickle.loads(message_bytes)
 
             # The whole message sent by alice
-            a1, q1, ya1, k1, m1, s11, s21, a2, q2, ya2, k2, m2, s12, s22, original_iv, cipher, cipher_key = message
+            a1, q1, ya1, k1, msg1, s11, s21, a2, q2, ya2, k2, msg2, s12, s22, original_iv, cipher, cipher_key = message
 
             # Verify digital signature by Elgamal algorithm, verifying the encrypted message and encrypted key
-            digital_signature_encrypted_message = elgamal.elgamal_verify_signature(a1, q1, ya1, m1, s11, s21)
+            digital_signature_encrypted_message = elgamal.elgamal_verify_signature(a1, q1, ya1, msg1, s11, s21)
             print("[Bob]: Encrypted message digital signatures is verified")
-            digital_signature_encrypted_key = elgamal.elgamal_verify_signature(a2, q2, ya2, m2, s12, s22)
+            digital_signature_encrypted_key = elgamal.elgamal_verify_signature(a2, q2, ya2, msg2, s12, s22)
             print("[Bob]: Encrypted key digital signatures is verified")
             verified = digital_signature_encrypted_message and digital_signature_encrypted_key
 

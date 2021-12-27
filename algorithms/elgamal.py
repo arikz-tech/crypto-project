@@ -27,10 +27,11 @@ def elgamal_digital_sign(message):
     s1 = pow(a, k, q)
     s2 = ((m - xa * s1) * k_inverse) % (q - 1)
 
-    return a, q, ya, k, m, s1, s2
+    return a, q, ya, k, msg, s1, s2
 
 
-def elgamal_verify_signature(a, q, ya, m, s1, s2):
+def elgamal_verify_signature(a, q, ya, msg, s1, s2):
+    m =int.from_bytes(hashlib.sha1(msg).digest(), byteorder='big')
     v_1 = (pow(ya, s1, q) * pow(s1, s2, q)) % q
     v_2 = pow(a, m, q)
 

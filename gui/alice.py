@@ -46,12 +46,12 @@ def start():
         cipher_key = mceliece.encrypt_secret_key(key, public_key)
 
         # Sign on the encrypted message by using Elgamal algorithm
-        a1, q1, ya1, k1, m1, s11, s21 = elgamal.elgamal_digital_sign(cipher)
+        a1, q1, ya1, k1, msg1, s11, s21 = elgamal.elgamal_digital_sign(cipher)
 
         # Sign on the encrypted key by using Elgamal algorithm
-        a2, q2, ya2, k2, m2, s12, s22 = elgamal.elgamal_digital_sign(cipher_key)
+        a2, q2, ya2, k2, msg2, s12, s22 = elgamal.elgamal_digital_sign(cipher_key)
 
-        message_packet = [a1, q1, ya1, k1, m1, s11, s21, a2, q2, ya2, k2, m2, s12, s22, original_iv, cipher, cipher_key]
+        message_packet = [a1, q1, ya1, k1, msg1, s11, s21, a2, q2, ya2, k2, msg2, s12, s22, original_iv, cipher, cipher_key]
         message_packet = pickle.dumps(message_packet)
         send(message_packet)
 
